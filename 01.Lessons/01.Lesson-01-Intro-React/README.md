@@ -1,6 +1,6 @@
-# ⭐ Bài 1: Giới Thiệu React & Ôn Tập JavaScript ESNext
+# ⭐ Bài 1: Giới Thiệu React, Ôn Tập JavaScript ESNext & TypeScript Cơ Bản
 
-> 🎯 Mục tiêu: Học viên hiểu React giải quyết vấn đề gì, dựng được môi trường phát triển đầu tiên, và nắm vững các cú pháp JS hiện đại sẽ dùng liên tục trong suốt khóa học.
+> 🎯 Mục tiêu: Học viên hiểu React giải quyết vấn đề gì, tự tạo được dự án React + TypeScript bằng Vite, nắm vững các cú pháp JS hiện đại sẽ dùng liên tục trong suốt khóa học, và khai báo được kiểu dữ liệu cơ bản bằng TypeScript.
 
 ---
 
@@ -117,6 +117,8 @@ React bản thân chỉ là một **thư viện** (library) để dựng UI, kh�
 
 **Vì sao chọn React học đầu tiên:** thị trường tuyển dụng rộng nhất, hệ sinh thái phong phú nhất, và tư duy "component + declarative" học được ở đây áp dụng được sang cả Vue lẫn React Native.
 
+> 💡 Với React, TypeScript không bắt buộc như Angular, nhưng hầu hết dự án React thực tế hiện nay đều dùng TypeScript. Vì vậy khóa học này dùng **React + TypeScript** ngay từ đầu (TypeScript cơ bản sẽ học ở Phần 7).
+
 ### 1.5 React có phổ biến không ?
 
 - Github Star: https://github.com/facebook/react/
@@ -158,46 +160,58 @@ node -v    # ví dụ: v20.11.0
 npm -v     # ví dụ: 10.2.4
 ```
 
-### 2.2 Tạo dự án React đầu tiên với Vite
+### 2.2 Cài đặt pnpm
+
+**pnpm** là trình quản lý package thay thế cho npm: cài đặt nhanh hơn và tiết kiệm dung lượng ổ cứng hơn, vì các package được lưu 1 lần duy nhất trên máy rồi dùng chung cho mọi dự án.
 
 ```bash
-pnpm create vite@latest my-first-react-app -- --template react
+npm install -g pnpm
+pnpm -v    # ví dụ: 10.x
+```
+
+### 2.3 Tạo dự án React + TypeScript đầu tiên với Vite
+
+```bash
+pnpm create vite my-first-react-app --template react-ts
 cd my-first-react-app
 pnpm install
 pnpm run dev
 ```
 
-> Nếu chưa có `pnpm`, có thể cài bằng `npm install -g pnpm`, hoặc dùng tạm `npm create vite@latest`.
+> 💡 `--template react-ts` tạo dự án React dùng **TypeScript**. Nếu dùng `--template react`, dự án sẽ là JavaScript thuần (file `.jsx`), không dùng trong khóa học này.
 
-### 2.3 Cấu trúc thư mục mặc định
+### 2.4 Cấu trúc thư mục mặc định
 
 ```
 my-first-react-app/
-├── public/          # File tĩnh (favicon, ảnh...), không qua xử lý của Vite
+├── public/              # File tĩnh (favicon, ảnh...), không qua xử lý của Vite
 ├── src/
-│   ├── main.jsx     # Điểm khởi chạy: render App vào DOM
-│   ├── App.jsx      # Component gốc của ứng dụng
-│   └── assets/      # Ảnh, font dùng trong code
-├── index.html       # File HTML gốc duy nhất (Single Page Application)
-├── vite.config.js   # Cấu hình Vite
-└── package.json     # Khai báo dependencies và scripts
+│   ├── main.tsx         # Điểm khởi chạy: render App vào DOM
+│   ├── App.tsx          # Component gốc của ứng dụng
+│   └── assets/          # Ảnh, font dùng trong code
+├── index.html           # File HTML gốc duy nhất (Single Page Application)
+├── vite.config.ts       # Cấu hình Vite
+├── tsconfig.json        # Cấu hình TypeScript (chia thành tsconfig.app.json và tsconfig.node.json)
+├── eslint.config.js     # Cấu hình ESLint
+└── package.json         # Khai báo dependencies và scripts
 ```
 
-### 2.4 VS Code Extensions cần thiết
+### 2.5 VS Code Extensions cần thiết
 
 - **ES7+ React/Redux/React-Native snippets** — gõ tắt tạo component (`rafce`)
 - **Prettier** — tự động format code
 - **ESLint** — bắt lỗi cú pháp/style ngay khi gõ
+- **Error Lens** — hiển thị lỗi (kể cả lỗi TypeScript) ngay trên dòng code, không cần rê chuột
 
-### 2.5 Hot Module Replacement (HMR)
+### 2.6 Hot Module Replacement (HMR)
 
-Chạy `pnpm run dev`, mở `src/App.jsx`, sửa 1 dòng chữ, lưu file (Ctrl+S) → trình duyệt **tự cập nhật ngay lập tức mà không load lại trang**, và quan trọng hơn là **không mất state hiện tại** của ứng dụng. Đây là điểm khiến trải nghiệm code React rất "sướng" so với reload thủ công.
+Chạy `pnpm run dev`, mở `src/App.tsx`, sửa 1 dòng chữ, lưu file (Ctrl+S) → trình duyệt **tự cập nhật ngay lập tức mà không load lại trang**, và quan trọng hơn là **không mất state hiện tại** của ứng dụng. Đây là điểm khiến trải nghiệm code React rất "sướng" so với reload thủ công.
 
 ---
 
 ## Phần 3: Ôn tập ESNext — Những cú pháp sẽ dùng "mỗi ngày" trong React
 
-> Phần này không dạy lại JS từ đầu, mà tập trung đúng những cú pháp **xuất hiện liên tục** trong code React từ bài sau trở đi.
+> Phần này không dạy lại JS từ đầu, mà tập trung đúng những cú pháp **xuất hiện liên tục** trong code React từ bài sau trở đi. Các ví dụ ở Phần 3-6 viết bằng JavaScript thuần để tập trung vào cú pháp; Phần 7 sẽ bổ sung kiểu dữ liệu TypeScript.
 
 ### 3.1 Arrow Function
 
@@ -472,16 +486,187 @@ async function getProducts() {
 
 ---
 
+## Phần 7: TypeScript tối thiểu để bắt đầu với React
+
+> Phần này không dạy toàn bộ TypeScript, mà chỉ những gì bạn **dùng ngay** khi viết React. Có thể thử nhanh các ví dụ trên [TypeScript Playground](https://www.typescriptlang.org/play) hoặc tạo file `.ts` trong dự án Vite vừa tạo.
+
+### 7.0 Định nghĩa: TypeScript là gì?
+
+> **TypeScript là JavaScript có thêm hệ thống kiểu dữ liệu (type). Code TypeScript được biên dịch về JavaScript thường để chạy trên trình duyệt. Kiểu dữ liệu chỉ tồn tại lúc viết code, dùng để phát hiện lỗi trước khi chạy.**
+
+### 7.1 Vì sao dùng TypeScript với React
+
+```javascript
+// JavaScript - lỗi chỉ lộ ra khi chạy
+function formatPrice(price) {
+  return `${price.toFixed(0)}đ`;
+}
+formatPrice('150000'); // ❌ Crash khi chạy: price.toFixed is not a function
+```
+
+```ts
+// TypeScript - lỗi hiện gạch đỏ ngay trong VS Code, chưa cần chạy
+function formatPrice(price: number) {
+  return `${price.toFixed(0)}đ`;
+}
+formatPrice('150000'); // ❌ Argument of type 'string' is not assignable to parameter of type 'number'
+```
+
+Lợi ích khi dùng TypeScript:
+
+- **Bắt lỗi sớm:** sai kiểu dữ liệu, gõ sai tên thuộc tính, quên xử lý `null`... đều bị báo ngay khi gõ.
+- **Gợi ý code tốt hơn:** gõ `product.` là VS Code liệt kê đủ các thuộc tính của `product`.
+- **Code tự giải thích:** nhìn kiểu dữ liệu là biết hàm nhận gì, trả về gì, không cần đoán.
+
+**Phân biệt `.ts` và `.tsx`:**
+
+- `.ts`: file TypeScript không chứa JSX (hàm tiện ích, khai báo kiểu, gọi API...)
+- `.tsx`: file TypeScript có chứa JSX (Component React)
+
+### 7.2 Kiểu dữ liệu cơ bản và Type Inference
+
+```ts
+const productName: string = 'Áo thun';
+const price: number = 150000;
+const inStock: boolean = true;
+const tags: string[] = ['mới', 'giảm giá'];
+
+// Type Inference - TypeScript tự suy ra kiểu từ giá trị khởi tạo
+let quantity = 2;   // TypeScript tự hiểu quantity là number
+quantity = 'hai';   // ❌ Type 'string' is not assignable to type 'number'
+```
+
+> 💡 **Quy tắc thực tế:** khi TypeScript tự suy ra được kiểu thì **không cần khai báo**. Chỉ cần khai báo kiểu cho **tham số của hàm**, và những chỗ TypeScript không tự đoán được (ví dụ giá trị ban đầu là `null` hoặc mảng rỗng `[]`).
+
+### 7.3 Mô tả Object bằng `type` và `interface`
+
+```ts
+type Product = {
+  id: number;
+  name: string;
+  price: number;
+  description?: string; // dấu ? = thuộc tính tùy chọn, có hoặc không đều được
+};
+
+const shirt: Product = { id: 1, name: 'Áo thun', price: 150000 }; // ✅ Đúng - được bỏ qua description
+const jeans: Product = { id: 2, name: 'Quần jean' };               // ❌ Sai - thiếu price
+```
+
+`interface` cũng dùng để mô tả object, cú pháp gần giống:
+
+```ts
+interface User {
+  id: number;
+  name: string;
+  email: string;
+}
+```
+
+**Khi nào dùng cái nào?** Khi mô tả object, `type` và `interface` gần như tương đương. Khóa học này **quy ước dùng `type`** cho thống nhất, vì `type` còn mô tả được Union Type (mục 7.4), còn `interface` thì không. Bạn sẽ gặp `interface` nhiều trong code thư viện và các dự án khác, nên chỉ cần đọc hiểu được.
+
+### 7.4 Union Type, Literal Type và `null`
+
+**Union Type** (`|`) nghĩa là "kiểu này **hoặc** kiểu kia". **Literal Type** giới hạn giá trị trong một danh sách cố định:
+
+```ts
+let id: number | string = 1;
+id = 'SP001'; // ✅ Đúng
+
+let status: 'idle' | 'loading' | 'success' | 'error' = 'idle';
+status = 'loading'; // ✅ Đúng
+status = 'done';    // ❌ Sai - 'done' không nằm trong danh sách cho phép
+```
+
+Kết hợp với `null` để mô tả dữ liệu **có thể chưa có**, ví dụ người dùng chưa đăng nhập:
+
+```ts
+type User = {
+  id: number;
+  name: string;
+};
+
+function getDisplayName(user: User | null) {
+  // return user.name;          ❌ Sai - 'user' is possibly 'null'
+  return user?.name ?? 'Khách'; // ✅ Đúng - dùng ?. và ?? đã ôn ở Phần 4
+}
+```
+
+> 💡 TypeScript **bắt buộc** bạn xử lý trường hợp `null`/`undefined` trước khi dùng. Vì vậy `?.` và `??` ở Phần 4 sẽ xuất hiện rất thường xuyên trong code React + TypeScript.
+
+### 7.5 Khai báo kiểu cho function và hàm async
+
+```ts
+// Khai báo kiểu cho tham số; kiểu trả về có thể ghi rõ (: string) hoặc để TypeScript tự suy ra
+const formatCurrency = (price: number): string => `${price.toLocaleString('vi-VN')}đ`;
+
+const getTotalPrice = (products: Product[]) =>
+  products.reduce((sum, p) => sum + p.price, 0); // TypeScript tự suy ra kết quả là number
+
+// Kiểu của một function - sẽ dùng khi truyền hàm qua Props ở Bài 3
+type OnSelect = (id: number) => void; // nhận 1 số, không trả về gì
+```
+
+Hàm `async` luôn trả về một **Promise**, kiểu viết là `Promise<Kiểu dữ liệu trả về>`:
+
+```ts
+type User = {
+  id: number;
+  name: string;
+  email: string;
+};
+
+async function getUsers(): Promise<User[]> {
+  const response = await fetch('https://jsonplaceholder.typicode.com/users');
+  return response.json();
+}
+```
+
+> ⚠️ `response.json()` trả về kiểu `any`, nên TypeScript sẽ **tin theo** kiểu `User[]` bạn khai báo mà không kiểm tra dữ liệu thật từ API. Khai báo đúng kiểu là trách nhiệm của bạn. Ta sẽ bàn kỹ hơn ở Bài 10.
+
+### 7.6 Generics — chỉ cần đọc hiểu
+
+> **Generic là "kiểu có tham số": một kiểu dữ liệu nhận thêm một kiểu khác bên trong cặp `< >`. Ví dụ `Array<T>` là "mảng chứa các phần tử kiểu T".**
+
+```ts
+const prices: Array<number> = [150000, 350000]; // tương đương number[]
+const request: Promise<User[]> = getUsers();    // một Promise, khi xong sẽ trả về mảng User
+```
+
+Ở giai đoạn này bạn chỉ cần **đọc hiểu** cú pháp `< >`. Bạn sẽ gặp lại nó ở Bài 4 với `useState`:
+
+```ts
+const [user, setUser] = useState<User | null>(null); // state có thể là User hoặc null
+```
+
+Đến Bài 7, bạn sẽ tự viết Custom Hook có dùng Generic.
+
+### 7.7 Tránh dùng `any`
+
+```ts
+let data: any = 'xin chào';
+data.toFixed(2); // Không báo lỗi gì, nhưng CRASH khi chạy
+
+let input: unknown = 'xin chào';
+input.toFixed(2);                                 // ❌ Sai - TypeScript bắt kiểm tra kiểu trước
+if (typeof input === 'number') input.toFixed(2);  // ✅ Đúng
+```
+
+> ⚠️ `any` **tắt toàn bộ** việc kiểm tra kiểu. Dùng `any` nghĩa là bỏ đi mọi lợi ích của TypeScript. Quy ước trong khóa học: **không dùng `any`**. Khi chưa biết kiểu dữ liệu, dùng `unknown` rồi kiểm tra trước khi dùng.
+
+---
+
 ## 🧪 Bài tập thực hành cuối buổi
 
-1. Cài đặt Node.js, tạo dự án React bằng Vite, chạy thành công `pnpm run dev`.
-2. Viết 1 file `utils.js` xuất ra:
-   - Hàm `formatCurrency(price)` dùng template literal, trả về dạng `"150.000đ"`
-   - Hàm `getTotalPrice(products)` dùng `reduce()` để tính tổng giá 1 mảng sản phẩm
-3. Từ mảng sản phẩm mẫu, dùng `filter()` + `map()` để lấy ra tên các sản phẩm có giá trên 200.000đ.
-4. Viết 1 hàm `async function fetchData()` gọi thử API công khai (ví dụ `https://jsonplaceholder.typicode.com/users`), log kết quả ra console, có xử lý lỗi bằng `try/catch`.
+1. Cài đặt Node.js và pnpm, tạo dự án React + TypeScript bằng Vite (`--template react-ts`), chạy thành công `pnpm run dev`.
+2. Trong dự án vừa tạo, viết file `src/utils.ts`:
+   - Khai báo `type Product = { id: number; name: string; price: number }`
+   - Hàm `formatCurrency(price: number): string` dùng template literal, trả về dạng `"150.000đ"`
+   - Hàm `getTotalPrice(products: Product[]): number` dùng `reduce()` để tính tổng giá một mảng sản phẩm
+3. Từ mảng sản phẩm mẫu (kiểu `Product[]`), dùng `filter()` + `map()` để lấy ra tên các sản phẩm có giá trên 200.000đ.
+4. Viết hàm `async function fetchUsers(): Promise<User[]>` gọi API `https://jsonplaceholder.typicode.com/users`, log kết quả ra console, có xử lý lỗi bằng `try/catch`. Tự khai báo `type User` với ít nhất 3 thuộc tính `id`, `name`, `email`.
+5. Import các hàm trên vào `App.tsx` và gọi thử. Cố tình truyền sai kiểu (ví dụ `formatCurrency('100')`) để quan sát lỗi TypeScript trong VS Code.
 
 
 ## 🧪 Bài tập Homework
 
-Xem tại file [homework-esnext.md](/homework-esnext.md)
+Xem tại file [homework-esnext.md](homework-esnext.md)

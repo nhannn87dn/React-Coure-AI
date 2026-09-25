@@ -66,7 +66,7 @@ function App() {
 
 ![Component Parent-Child](assets/component-parent-child.png)
 
-Ở đây, `App` là Component **cha**, còn `Header`, `Sidebar`, `Footer` là các Component **con**. Cây giao diện của cả ứng dụng React luôn có 1 Component gốc (thường là `App`), rồi phân nhánh dần xuống các Component con — y hệt cấu trúc cây trong `Virtual DOM` mà ta sẽ tìm hiểu kỹ hơn ở Bài 3.
+Ở đây, `App` là Component **cha**, còn `Header`, `Sidebar`, `Footer` là các Component **con**. Cây giao diện của cả ứng dụng React luôn có 1 Component gốc (thường là `App`), rồi phân nhánh dần xuống các Component con — y hệt cấu trúc cây trong `Virtual DOM` mà ta sẽ tìm hiểu kỹ hơn ở Bài 5.
 
 ### 1.4 Import và Export Component
 
@@ -259,7 +259,7 @@ App.tsx      →   Component gốc, chứa toàn bộ cây giao diện của ứ
 import { createRoot } from 'react-dom/client';
 import App from './App.tsx';
 
-createRoot(document.getElementById('root')).render(<App />);
+createRoot(document.getElementById('root')!).render(<App />);
 ```
 
 Đây chính là bản chất của **Single Page Application (SPA)**: chỉ có 1 file HTML duy nhất, toàn bộ nội dung còn lại do React "vẽ" ra bằng JavaScript.
@@ -276,9 +276,9 @@ src/
 
 Đây là quy ước tổ chức phổ biến, không bắt buộc, nhưng giúp dự án dễ maintain khi số lượng Component tăng lên.
 
-### 4.3 File `vite.config.js` và `package.json`
+### 4.3 File `vite.config.ts` và `package.json`
 
-- **`vite.config.js`**: cấu hình cách Vite build/dev dự án (plugin React, alias đường dẫn...)
+- **`vite.config.ts`**: cấu hình cách Vite build/dev dự án (plugin React, alias đường dẫn...)
 - **`package.json`**: khai báo tên dự án, các thư viện (dependencies) đang dùng, và các lệnh chạy (`scripts`) như `dev`, `build`.
 
 ### 4.4 Import CSS vào Component
@@ -347,6 +347,26 @@ Cách sử dụng className khi import module css:
 ```tsx
 <div className={styles.card}>...</div>
 ```
+
+#### 4.4.3 Giới thiệu nhanh Tailwind CSS
+
+> **Tailwind CSS là 1 thư viện CSS theo hướng "utility-first" — thay vì tự viết class CSS riêng rồi định nghĩa style cho nó (như Module CSS ở mục 4.4.2), bạn ghép nhiều class dựng sẵn ngay trong `className` để tạo ra giao diện.**
+
+```tsx
+// Cùng 1 kết quả với Card.module.css ở mục 4.4.2, nhưng viết bằng Tailwind
+function Card({ title, children }: { title: string; children: React.ReactNode }) {
+  return (
+    <div className="border border-gray-200 rounded-lg p-4 m-2 shadow-sm">
+      <h3 className="text-slate-800 mb-3">{title}</h3>
+      <div className="text-slate-600">{children}</div>
+    </div>
+  );
+}
+```
+
+Mỗi class (`border`, `rounded-lg`, `p-4`, `shadow-sm`...) ứng với **đúng 1 khai báo CSS** (viền, bo góc, khoảng đệm, đổ bóng...) — không cần đặt tên class, không cần chuyển qua lại giữa file `.tsx` và file `.css` như CSS Module.
+
+> 💡 Tailwind hiện là cách style phổ biến nhất trong các dự án React thực tế, và là lựa chọn **khuyến khích** cho Mini Project (Bài 7) và Capstone Project (Bài 12). Cài đặt cụ thể (`pnpm add tailwindcss`, cấu hình `vite.config.ts`) không thuộc phạm vi buổi học này — học viên tự tìm hiểu theo [tài liệu chính thức](https://tailwindcss.com/docs/installation) nếu muốn áp dụng. Global CSS và CSS Module (mục 4.4.1, 4.4.2) vẫn là kiến thức bắt buộc của khóa học, dùng xuyên suốt các bài sau.
 
 ---
 
@@ -447,4 +467,6 @@ Chạy `pnpm run dev` và bạn sẽ thấy 1 trang giới thiệu cá nhân ho�
 4. Cố tình viết sai 1 lỗi JSX phổ biến (ví dụ quên thẻ tự đóng, return 2 element không bọc) để quan sát thông báo lỗi mà Vite hiển thị — giúp làm quen mặt lỗi trước khi gặp thật.
 
 ## 🧪 Bài tập HomeWork
+
+Xem tại file [homeworks.md](homeworks.md)
 
