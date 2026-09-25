@@ -65,6 +65,16 @@ Follow the existing style exactly when writing or editing lesson content — it 
 - Code samples use modern React (functional components + hooks) and TypeScript with a consistent style throughout the course (arrow functions, camelCase naming, no `any`).
 - Formatting: clear Markdown headings (H2 for major sections, H3 for subsections), syntax-highlighted code blocks (` ```tsx `).
 
+## No editorial/meta commentary in lesson content
+
+Lesson files (README.md, homeworks.md, homework-*.md, mini-project.md, capstone-project.md) are read only by students — never by the person requesting edits. Do not leave in any content that explains the edit itself or talks to the requester, such as:
+
+- Notes like "Đã cập nhật/sửa/thêm phần này theo yêu cầu...", "as requested", "per your feedback", changelog-style remarks, or first-person "I added/changed/fixed X" commentary.
+- Standalone sections not part of the documented structure (e.g. "Thay đổi", "Cập nhật", "Changelog", "Review notes", "Editor notes").
+- Leftover HTML comments or asides summarizing a diff instead of teaching content.
+
+Every sentence in these files must be written for a student to read. If you need to explain what you changed and why, say it in the chat response to the user, not in the file.
+
 ## Mini project & capstone project
 
 Both are done at home; their topic options, minimum requirements, and rubrics are defined in `outline-claude.md`.
