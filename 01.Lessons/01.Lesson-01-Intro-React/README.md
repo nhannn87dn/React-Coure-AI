@@ -484,4 +484,4 @@ async function getProducts() {
 
 ## 🧪 Bài tập Homework
 
-Xem tại file [homework-esnext.md](/homework-esnext.md)
+Xem tại file [homework-esnext.md](./homework-esnext.md)

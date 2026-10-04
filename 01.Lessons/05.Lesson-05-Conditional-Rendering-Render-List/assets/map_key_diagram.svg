@@ -1,0 +1,43 @@
+<svg width="100%" viewBox="0 0 700 300" role="img" xmlns="http://www.w3.org/2000/svg">
+<title>Sơ đồ map() biến mảng dữ liệu thành danh sách JSX Element, mỗi phần tử gắn key theo id</title>
+<desc>Bên trái là mảng products gồm 2 object có id 1 và 2. Mũi tên products.map(product =&gt; &lt;li key={product.id}&gt;) trỏ sang bên phải. Bên phải là thẻ ul chứa 2 thẻ li, mỗi li có key trùng với id tương ứng của object dữ liệu.</desc>
+<defs>
+<marker id="arrowA" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+  <path d="M2 1L8 5L2 9" fill="none" stroke="#3d3d3a" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+</marker>
+</defs>
+
+<rect x="0" y="0" width="700" height="300" fill="#ffffff"/>
+
+<text x="350" y="24" text-anchor="middle" font-size="14" font-weight="600" fill="#2C2C2A" font-family="anthropic-sans, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif">products.map(product =&gt; &lt;li key={product.id}&gt;)</text>
+
+<!-- Left: data array -->
+<rect x="30" y="60" width="220" height="180" rx="8" fill="#ffffff" stroke="#888780" stroke-width="1" stroke-dasharray="4 3"/>
+<text x="140" y="82" text-anchor="middle" font-size="13" font-weight="600" fill="#2C2C2A" font-family="anthropic-sans, sans-serif">products: Product[]</text>
+
+<rect x="50" y="96" width="180" height="56" rx="6" fill="#E1F5EE" stroke="#0F6E56" stroke-width="0.5"/>
+<text x="140" y="116" text-anchor="middle" font-size="12" fill="#04342C" font-family="anthropic-sans, sans-serif">{ id: 1, name: 'Áo thun',</text>
+<text x="140" y="134" text-anchor="middle" font-size="12" fill="#04342C" font-family="anthropic-sans, sans-serif">price: 150000 }</text>
+
+<rect x="50" y="164" width="180" height="56" rx="6" fill="#E1F5EE" stroke="#0F6E56" stroke-width="0.5"/>
+<text x="140" y="184" text-anchor="middle" font-size="12" fill="#04342C" font-family="anthropic-sans, sans-serif">{ id: 2, name: 'Quần jean',</text>
+<text x="140" y="202" text-anchor="middle" font-size="12" fill="#04342C" font-family="anthropic-sans, sans-serif">price: 350000 }</text>
+
+<!-- Arrow -->
+<line x1="255" y1="150" x2="435" y2="150" stroke="#3d3d3a" stroke-width="1" marker-end="url(#arrowA)"/>
+<text x="345" y="140" text-anchor="middle" font-size="12" fill="#5F5E5A" font-family="anthropic-sans, sans-serif">map()</text>
+
+<!-- Right: JSX list -->
+<rect x="440" y="60" width="230" height="180" rx="8" fill="#ffffff" stroke="#888780" stroke-width="1" stroke-dasharray="4 3"/>
+<text x="555" y="82" text-anchor="middle" font-size="13" font-weight="600" fill="#2C2C2A" font-family="anthropic-sans, sans-serif">&lt;ul&gt; ... &lt;/ul&gt;</text>
+
+<rect x="460" y="96" width="190" height="56" rx="6" fill="#EAF3DE" stroke="#639922" stroke-width="0.5"/>
+<text x="555" y="118" text-anchor="middle" font-size="12" fill="#173404" font-family="anthropic-sans, sans-serif">&lt;li key={1}&gt;</text>
+<text x="555" y="136" text-anchor="middle" font-size="12" fill="#173404" font-family="anthropic-sans, sans-serif">Áo thun - 150.000đ&lt;/li&gt;</text>
+
+<rect x="460" y="164" width="190" height="56" rx="6" fill="#EAF3DE" stroke="#639922" stroke-width="0.5"/>
+<text x="555" y="186" text-anchor="middle" font-size="12" fill="#173404" font-family="anthropic-sans, sans-serif">&lt;li key={2}&gt;</text>
+<text x="555" y="204" text-anchor="middle" font-size="12" fill="#173404" font-family="anthropic-sans, sans-serif">Quần jean - 350.000đ&lt;/li&gt;</text>
+
+<text x="350" y="268" text-anchor="middle" font-size="12" fill="#5F5E5A" font-family="anthropic-sans, sans-serif">key=product.id giúp React ghép đúng mỗi &lt;li&gt; với đúng 1 object dữ liệu qua các lần render</text>
+</svg>
